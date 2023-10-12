@@ -1,2 +1,2 @@
 # pagnerf
-PAg-NeRF's Project Page
+PAg-NeRF's project website

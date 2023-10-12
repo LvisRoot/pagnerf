@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>PAg-NeRF</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:image" content="https://claussmitt.com/pagnerf/assets/images/pagnerf.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1296">
+    <meta property="og:image:height" content="840">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://claussmitt.com/pagnerf/"/>
+    <meta property="og:title" content="PAg-NeRF: Towards fast and efficient end-to-end panoptic 3D representations for agricultural robotics" />
+    <meta property="og:description" content="Precise scene understanding is key for most robot monitoring and intervention tasks in agriculture. In this work we present PAg-NeRF which is a novel NeRF-based system that enables 3D panoptic scene understanding. Our representation is trained using an image sequence with noisy robot odometry poses and automatic panoptic predictions with inconsistent IDs between frames. Despite this noisy input, our system is able to output scene geometry, photo-realistic renders and 3D consistent panoptic representations with consistent instance IDs. We evaluate this novel system in a very challenging horticultural scenario and in doing so demonstrate an end-to-end trainable system that can make use of noisy robot poses rather than precise poses that have to be pre-calculated. Compared to a baseline approach the peak signal to noise ratio is improved from 21.34dB to 23.37dB while the panoptic quality improves from 56.65% to 70.08%. Furthermore, our approach is faster and can be tuned to improve inference time by more than a factor of 2 while being memory efficient with approximately 12 times fewer parameters." />
+
+    <link rel="shortcut icon" href="assets/images/peppers.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+    <script src="js/video_comparison.js"></script>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b>PAg-NeRF</b>: Towards fast and efficient end-to-end panoptic 3D representations for agricultural robotics 
+                <small>
+                <!-- ICCV 2023 (Oral Presentation) -->
+                </small>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="http://claussmitt.com">
+                        Claus Smitt &dagger;</a>
+                    </li>
+                    <li>
+                        <a href="http://agrobotics.uni-bonn.de/michael-halstead/">
+                        Michael Halstead &dagger;</a>
+                    </li>
+                    <li>
+                        <a href="http://agrobotics.uni-bonn.de/patrick-zimmer/">
+                        Patrick Zimmer &dagger;</a>
+                    </li>
+                    <li>
+                        <a href="https://www.ipb.uni-bonn.de/people/thomas-laebe/">
+                        Thomas Läbe &Dagger;</a>
+                    </li>
+                    <li>
+                        <a href="http://agrobotics.uni-bonn.de/esra-guclu/">
+                        Esra Guclu &dagger;</a>
+                    </li>
+                    <li>
+                        <a href="https://www.ipb.uni-bonn.de/people/cyrill-stachniss/">
+                        Cyrill Stachniss &Dagger;</a>
+                    </li>
+                    <li>
+                        <a href="https://sites.google.com/site/christophersmccool/">
+                        Chris McCool &dagger;</a>
+                    </li>
+                    <br><br>
+                    <a href="University of Bonn">
+                        &dagger; Institute of Agriculture</a> &nbsp;&nbsp;&nbsp;&nbsp 
+                    <a href="University of Bonn">
+                        &Dagger; Institute of Photogrammetry</a>
+                    </br><a href="University of Bonn">
+                        University of Bonn</a>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="https://arxiv.org/abs/2309.05339">
+                            <image src="assets/images/paper_cover.png" height="60px">
+                                <h4><strong>Paper</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <image src="assets/images/github.svg" height="60px">
+                                <h4>Code<br>(comming soon)</h4>
+                        </li>
+                        <li>
+                            <image src="assets/images/database.svg" height="60px">
+                                <h4>Data<br>(comming soon)</h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+        <br>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <video id="v0" width="100%" autoplay loop muted controls>
+                  <source src="assets/videos/grid.mp4" type="video/mp4" />
+                </video>
+						</div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Abstract
+                </h3>
+                <p class="text-justify">
+                    Precise scene understanding is key for most robot monitoring and intervention tasks in agriculture.
+                    In this work we present PAg-NeRF which is a novel NeRF-based system that enables 3D panoptic scene understanding.
+                    Our representation is trained using an image sequence with noisy robot odometry poses and automatic panoptic predictions with inconsistent IDs between frames.
+                    Despite this noisy input, our system is able to output scene geometry, photo-realistic renders and 3D consistent panoptic representations with consistent instance IDs.
+                    We evaluate this novel system in a very challenging horticultural scenario and in doing so demonstrate an end-to-end trainable system that can make use of noisy robot poses rather than precise poses that have to be pre-calculated.
+                    Compared to a baseline approach the peak signal to noise ratio is improved from 21.34dB to 23.37dB while the panoptic quality improves from 56.65% to 70.08%. Furthermore, our approach is faster and can be tuned to improve inference time by more than a factor of 2 while being memory efficient with approximately 12 times fewer parameters.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Video
+                </h3>
+                <div class="text-center">
+                        <video id="v0" width="100%" controls>
+                            <source src="assets/videos/paper_video.mp4" type="video/mp4" />
+                        </video>
+                </div>
+            </div>
+        </div>
+<br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Architecture
+                </h3>
+                <img src='assets/images/pipeline.png' width="100%">
+                
+                <p class="text-justify">
+                <br>
+                We use state-of-the-art permutohedral feature hash-grids to encode 3D space, allowing our system to be fast and memory efficient. 
+                
+                Our architecture uses novel delta grid that computes panoptic features by correcting the color features, leveraging the similarity between modalities.
+
+                Thanks to the implicit sparseness of hash-grids, we are able to reduce the panoptic capacity to only have valid values where corrections are needed.
+                We avoid propagating gradients from the panoptic to the color branch to ensure the panoptic grid only learns corrections over the color features.
+                
+                Our grid based architecture allows us to decoded all render quantities with very shallow MLPs.
+
+                To learn 3D consistent instant IDs from inconsistent ID still-image predictions, we employ a modified linear assignment loss, tackling the fix scale nature of several agricultural datasets, rejecting repeated IDs.
+
+                To obtain high-detail multi-view consistent renders, we also perform online pose optimization, making our system end-to-end trainable.
+                </p>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Consistent Instance ID Mapping
+                </h3>
+                <video class="video" width=100% id="inst_comp" loop playsinline autoplay muted src="assets/videos/inst_comp.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas height=0 class="videoMerge" id="inst_compMerge"></canvas>
+                <p class="text-justify">
+                    <br>
+                    To train our model on frame-wise panoptic segmentation predictions, we solve an optimal linear assignment, based on mask similarity, using the hungarian algorithm.
+                    Associated masks can then be used as pseudo-labels for a cross entropy loss to train our instance ID head.
+                </p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Repeated ID Outlier Rejection
+                </h3>
+                <video class="video" width=100% id="idrej_comp" loop playsinline autoplay muted src="assets/videos/idrej_comp.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas height=0 class="videoMerge" id="idrej_compMerge"></canvas>
+                <p class="text-justify">
+                    <br>
+                    In several agricultural scenarios, the camera moves parallel to the targets, measuring the scene at a fixed scale.
+                    Thus, targets at opposite ends of the camera frustum will appear in several frames on their own, but only in a few together.
+                    This does not encourage the optimal assignment to give different IDs to them and can lead to multiple objects having the same ID.
+
+                    We address this issue with a simple sliding window of assignable IDs, linearly dependent of each target's 3D position along the robot trajectory.
+                    This gets incorporated to the optimal ID association by setting the assignment costs of predicted IDs outside of the window to a prohibitively high value.
+                </p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    3D Panoptic Maps
+                </h3>
+                <div class="text-center">
+                        <video id="v0" width="100%" autoplay loop muted controls>
+                            <source src="assets/videos/3dview.mp4" type="video/mp4" />
+                        </video>
+                </div>
+                <p class="text-justify">
+                    <br>
+                    3D panoptic pointclouds can be extracted from our implicit representation, by rendering color and panoptic images and un-pojecting them with the corresponding estimated ray termination.
+                    Individual fruit instances can be extracted from the panoptic map by keeping only points that have valid instance IDs.
+                    This type of output can be used to count individual peppers or combine it with prior knowledge-based prediction approaches to regress a mesh representation of individual peppers, from which volume and quality can be inferred.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation
+                </h3>
+                <div class="form-group col-md-10 col-md-offset-1">
+                    <textarea id="bibtex" class="form-control" readonly>
+@article{smitt2023pag,
+    title={PAg-NeRF: Towards fast and efficient end-to-end panoptic 3D
+           representations for agricultural robotics},
+    author={Smitt Claus and Halstead Michael and Zimmer Patrick and
+            Laebe Thomas and Guclu Esra and Stachniss Cyrill and McCool Chris},
+    journal={arXiv preprint arXiv:2309.05339},
+    year={2023}
+}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Acknowledgements
+                </h3>
+                <p class="text-justify">
+                    This work was partially funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) 459376902 and under Germany’s Excellence Strategy - EXC 2070 – 390732324.
+                    <br><br>
+                The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a> and <a href="https://dorverbin.github.io/refnerf">Ref-NeRF</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
