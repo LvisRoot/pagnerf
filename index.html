@@ -22,12 +22,12 @@
 
     <link rel="shortcut icon" href="assets/images/peppers.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
     <link rel="stylesheet" href="css/app.css">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -97,7 +97,7 @@
                         <li>
                             <a href="https://arxiv.org/abs/2309.05339">
                             <image src="assets/images/paper_cover.png" height="60px">
-                                <h4><strong>Paper</strong></h4>
+                                <h4><strong>Pre-Print</strong></h4>
                             </a>
                         </li>
                         <li>
@@ -154,7 +154,7 @@
                 </div>
             </div>
         </div>
-<br>
+        <br>
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -181,39 +181,79 @@
             </div>
         </div>
         <br>
+
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <h3>
-                    Consistent Instance ID Mapping
+                    Results Comparison <small>(click to enlarge)</small>
                 </h3>
-                <video class="video" width=100% id="inst_comp" loop playsinline autoplay muted src="assets/videos/inst_comp.mp4" onplay="resizeAndPlay(this)"></video>
-                <canvas height=0 class="videoMerge" id="inst_compMerge"></canvas>
+            </div>
+            <div class="col-md-4">
+                <video class="video" width=0 id="panoli_comp1" loop playsinline autoplay muted src="assets/videos/panoli_comp_3.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas class="videoMerge" id="panoli_comp1Merge" style="cursor: pointer;"></canvas>
+                <p class="text-justify" id="panoli_comp1Div"></p>
+            </div>
+
+            <div class="col-md-4">
+                <video class="video" width=0 id="panoli_comp2" loop playsinline autoplay muted src="assets/videos/panoli_comp_4.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas class="videoMerge" id="panoli_comp2Merge" style="cursor: pointer;"></canvas>
+                <p class="text-justify" id="panoli_comp2Div"></p>
+            </div>
+
+            <div class="col-md-4">
+                <video class="video" width=0 id="panoli_comp3" loop playsinline autoplay muted src="assets/videos/panoli_comp_1.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas class="videoMerge" id="panoli_comp3Merge" style="cursor: pointer;"></canvas>
+                <p class="text-justify" id="panoli_comp3Div"></p>
+            </div>
+            <br>
+            <div class="col-md-12">
                 <p class="text-justify">
-                    <br>
-                    To train our model on frame-wise panoptic segmentation predictions, we solve an optimal linear assignment, based on mask similarity, using the hungarian algorithm.
-                    Associated masks can then be used as pseudo-labels for a cross entropy loss to train our instance ID head.
+                    
+                    PAg-NeRF is able to reproduce very fine details of the fruits and leaf textures as well as high frequency edges and thin structures that get smoothed out by Panoptic Lifting.
+                    Most instances are well segmented even with high levels of occlusion, varying illumination conditions and camera shake.
+                    Additionally, thanks to our repeated ID rejection loss, our model is able to properly distinguish between instances at the far ends of the frame, whereas Panoptic Lifting merges them into a single detections with long bounding boxes since it uses a plain linear assignment loss during training.
+                    PAg-NeRF achieves these results with very shallow NN decoders in contrast to panoptic lifting, and can be tuned to be 2x Faster with 12x less parameters.
                 </p>
             </div>
         </div>
-        
-        <!-- <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Repeated ID Outlier Rejection
-                </h3>
-                <video class="video" width=100% id="idrej_comp" loop playsinline autoplay muted src="assets/videos/idrej_comp.mp4" onplay="resizeAndPlay(this)"></video>
-                <canvas height=0 class="videoMerge" id="idrej_compMerge"></canvas>
-                <p class="text-justify">
-                    <br>
-                    In several agricultural scenarios, the camera moves parallel to the targets, measuring the scene at a fixed scale.
-                    Thus, targets at opposite ends of the camera frustum will appear in several frames on their own, but only in a few together.
-                    This does not encourage the optimal assignment to give different IDs to them and can lead to multiple objects having the same ID.
 
-                    We address this issue with a simple sliding window of assignable IDs, linearly dependent of each target's 3D position along the robot trajectory.
-                    This gets incorporated to the optimal ID association by setting the assignment costs of predicted IDs outside of the window to a prohibitively high value.
+        <div class="row">
+            <div class="col-md-12">
+                <h3>
+                    Key Model Advantages <small>(click to enlarge)</small>
+                </h3>
+            </div>
+            <div class="col-md-4">
+                <h4 style="margin-bottom:-3mm;">
+                    Consistent Instance IDs
+                </h4>
+                <video class="video" width=0 id="inst_comp" loop autoplay muted src="assets/videos/inst_comp.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas class="videoMerge" id="inst_compMerge" style="cursor: pointer;"></canvas>
+                <p class="text-justify" id="inst_compDiv">
+                    Our model fuses ID inconsistent panoptic detections from a Mask2Former model into its implicit 3D to predict instances with unique IDs. 
                 </p>
             </div>
-        </div> -->
+            <div class="col-md-4">
+                <h4 style="margin-bottom:-3mm;">
+                    Repeated ID Rejection
+                </h4>
+                <video class="video" width=0 id="idrej_comp" loop playsinline autoplay muted src="assets/videos/idrej_comp.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas class="videoMerge" id="idrej_compMerge" style="cursor: pointer;"></canvas>
+                <p class="text-justify" id="idrej_compDiv">
+                    We proposed a modified linear assignment loss, robust to repeated ID assignment, for data with planar camera motion parallel to a quasi-planar distribution of targets.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h4 style="margin-bottom:-3mm;">
+                    Online Pose Optimization
+                </h4>
+                <video class="video" width=0 id="odom_comp" loop playsinline autoplay muted src="assets/videos/odom_comp.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas class="videoMerge" id="odom_compMerge" style="cursor: pointer;"></canvas>
+                <p class="text-justify" id="odom_compDiv">
+                    Our model refines noisy robot odometry with online pose optimization to estimate the correct camera motion. This leads to both higher render and panoptic performance. 
+                </p>
+            </div>
+        </div>
         
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
