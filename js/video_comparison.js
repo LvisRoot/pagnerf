@@ -42,7 +42,7 @@ function playVids(videoId, scale) {
         }
         function trackTouchGlobal(e) {
             mouseX = e.touches[0].clientX
-            mouseY = e.touches[0].clientX
+            mouseY = e.touches[0].clientY
         }
         function trackLocation(e) {
             // Normalize to [0, 1]
