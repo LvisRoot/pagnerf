@@ -41,7 +41,8 @@ function playVids(videoId, scale) {
             mouseY = e.clientY
         }
         function trackTouchGlobal(e) {
-            mousePos = e.touches[0]
+            mouseX = e.touches[0].clientX
+            mouseY = e.touches[0].clientX
         }
         function trackLocation(e) {
             // Normalize to [0, 1]
@@ -65,9 +66,9 @@ function playVids(videoId, scale) {
         }
 
         document.addEventListener("mousemove",  trackMouseGlobal, false);
+        document.addEventListener("touchmove",  trackTouchGlobal, false);
+        document.addEventListener("touchstart", trackTouchGlobal, false);
         videoMerge.addEventListener("mouseup",  openFullscreen, false);
-        videoMerge.addEventListener("touchmove",  trackTouchGlobal, false);
-        videoMerge.addEventListener("touchstart", trackTouchGlobal, false);
         videoMerge.addEventListener("mousemove",  trackLocation, false);
         videoMerge.addEventListener("touchstart", trackLocationTouch, false);
         videoMerge.addEventListener("touchmove",  trackLocationTouch, false);
