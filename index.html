@@ -53,38 +53,38 @@
                 <ul class="list-inline">
                     <li>
                         <a href="http://claussmitt.com">
-                        Claus Smitt &dagger;</a>
+                        Claus Smitt 🌱</a>
                     </li>
                     <li>
                         <a href="http://agrobotics.uni-bonn.de/michael-halstead/">
-                        Michael Halstead &dagger;</a>
+                        Michael Halstead 🌱</a>
                     </li>
                     <li>
                         <a href="http://agrobotics.uni-bonn.de/patrick-zimmer/">
-                        Patrick Zimmer &dagger;</a>
+                        Patrick Zimmer 🌱</a>
                     </li>
                     <li>
                         <a href="https://www.ipb.uni-bonn.de/people/thomas-laebe/">
-                        Thomas Läbe &Dagger;</a>
+                        Thomas Läbe 📸</a>
                     </li>
                     <li>
                         <a href="http://agrobotics.uni-bonn.de/esra-guclu/">
-                        Esra Guclu &dagger;</a>
+                        Esra Guclu 🌱</a>
                     </li>
                     <li>
                         <a href="https://www.ipb.uni-bonn.de/people/cyrill-stachniss/">
-                        Cyrill Stachniss &Dagger;</a>
+                        Cyrill Stachniss 📸</a>
                     </li>
                     <li>
                         <a href="https://sites.google.com/site/christophersmccool/">
-                        Chris McCool &dagger;</a>
+                        Chris McCool 🌱</a>
                     </li>
                     <br><br>
-                    <a href="University of Bonn">
-                        &dagger; Institute of Agriculture</a> &nbsp;&nbsp;&nbsp;&nbsp 
-                    <a href="University of Bonn">
-                        &Dagger; Institute of Photogrammetry</a>
-                    </br><a href="University of Bonn">
+                    <a href="http://agrobotics.uni-bonn.de/">
+                        🌱 AgRobotics, Institute of Agriculture</a> &nbsp;&nbsp;&nbsp;&nbsp 
+                    <a href="https://www.ipb.uni-bonn.de/">
+                        📸 Institute of Photogrammetry</a>
+                    </br><a href="https://www.uni-bonn.de/">
                         University of Bonn</a>
                 </ul>
             </div>
@@ -101,12 +101,15 @@
                             </a>
                         </li>
                         <li>
+                            <a href="https://github.com/Agricultural-Robotics-Bonn/pagnerf">
                             <image src="assets/images/github.svg" height="60px">
-                                <h4>Code<br>(coming soon)</h4>
+                                <h4><strong>Code</strong></h4>
+                            </a>
                         </li>
                         <li>
+                            <a href="http://agrobotics.uni-bonn.de/sweet_pepper_dataset/">
                             <image src="assets/images/database.svg" height="60px">
-                                <h4>Data<br>(coming soon)</h4>
+                                <h4><strong>Data</strong><br></h4>
                             </a>
                         </li>
                     </ul>
@@ -118,6 +121,9 @@
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <p class="text-justify">
+                    <strong>TL;DR: </strong> PAg-NeRF is a fast and efficient model, targeted for challenging agricultural scenarios, that can render photo-realistic panoptic 3D maps from images, panoptic detections and robot odometry.
+                </p>
                 <video id="v0" width="100%" autoplay loop muted controls>
                   <source src="assets/videos/grid.mp4" type="video/mp4" />
                 </video>
@@ -209,10 +215,10 @@
             <div class="col-md-12">
                 <p class="text-justify">
                     
-                    PAg-NeRF is able to reproduce very fine details of the fruits and leaf textures as well as high frequency edges and thin structures that get smoothed out by Panoptic Lifting.
-                    Most instances are well segmented even with high levels of occlusion, varying illumination conditions and camera shake.
-                    Additionally, thanks to our repeated ID rejection loss, our model is able to properly distinguish between instances at the far ends of the frame, whereas Panoptic Lifting merges them into a single detections with long bounding boxes since it uses a plain linear assignment loss during training.
-                    PAg-NeRF achieves these results with very shallow NN decoders in contrast to panoptic lifting, and can be tuned to be 2x Faster with 12x less parameters.
+                    PAg-NeRF is able to reproduce very fine details of the fruit and leaf textures as well as high frequency edges and thin structures that get smoothed out by Panoptic Lifting.
+                    Most instances produced by PAg-NeRF are well segmented even though high levels of occlusion, varying illumination conditions and camera shake.
+                    Additionally, thanks to our repeated ID rejection loss, our model is able to properly distinguish between instances at the far ends of the frame, whereas Panoptic Lifting merges them into a single detection with long bounding boxes since it uses a plain linear assignment loss during training.
+                    PAg-NeRF achieves these results with very shallow NN decoders in contrast to panoptic lifting and can be tuned to be 2x Faster with 12x less parameters.
                 </p>
             </div>
         </div>
@@ -230,7 +236,7 @@
                 <video class="video" width=0 id="inst_comp" loop autoplay muted src="assets/videos/inst_comp.mp4" onplay="resizeAndPlay(this)"></video>
                 <canvas class="videoMerge" id="inst_compMerge" style="cursor: pointer;"></canvas>
                 <p class="text-justify" id="inst_compDiv">
-                    Our model fuses ID inconsistent panoptic detections from a Mask2Former model into its implicit 3D to predict instances with unique IDs. 
+                    Our model takes as input still-image panoptic detections from a Mask2Former, with instance IDs changing every frame, and extracts instances with consistent ID using its implicit 3D representation and a robust linear assignment loss.
                 </p>
             </div>
             <div class="col-md-4">
@@ -299,7 +305,9 @@
                     Acknowledgements
                 </h3>
                 <p class="text-justify">
-                    This work was partially funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) 459376902 and under Germany’s Excellence Strategy - EXC 2070 – 390732324.
+                    This work was developed in collaboration with the <a href="http://aid4crops.uni-bonn.de/">Aid4Crops</a> project and the <a href="http://phenorob.de/">PhenoRob</a> Cluster of Excelence.
+                    <br>
+                    Further more this project was partially funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) 459376902 and under Germany’s Excellence Strategy - EXC 2070 – 390732324.
                     <br><br>
                 The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a> and <a href="https://dorverbin.github.io/refnerf">Ref-NeRF</a>.
                 </p>
